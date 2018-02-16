@@ -1,3 +1,8 @@
+@font-face {
+    font-family: 'DSEG7 Classic Light';
+    src: url('DSEG7Classic-Light.woff') format('woff');
+}
+
 html {
     height: 100%;
 }
@@ -9,6 +14,105 @@ body {
     color: white;
     background-color: black;
     font-family: Verdana, Arial, sans-serif;
+}
+
+.beatsToCue.master{
+    color: orange;
+}
+
+.beatsToCue.this{
+    color: #74c4ff;
+}
+
+.beatsToCue.text{
+    font-family: Verdana, Arial, sans-serif;
+    font-size: 13px;
+    position: relative;
+    height: 100%;
+}
+
+.beatsToCue.text span{
+    top: 5px;
+    position: absolute;
+}
+
+.beatsToCue {
+    float: left;
+    margin-left: 5px;
+    font-family: DSEG7 Classic Light;
+    font-size: 18px;
+}
+
+.beatPlaceHolder {
+    float: left;
+    height: 15px;
+    width: 2px;
+    margin-top: 3px;
+}
+
+.beat {
+    height: 20px;
+    width: 55px;
+    border: 1px solid;
+    float: left;
+}
+
+.beatPlaceHolder.master {
+    background-color: #e49400;
+}
+
+.beatPlaceHolder.this {
+    background-color: #3d87bd;
+}
+
+.beat.master {
+    border-color: #e49400;
+}
+
+.beat.this {
+    border-color: #3d87bd;
+}
+
+.quantizeContainer {
+    width: 320px;
+    height: 25px;
+    margin: 0 auto 2px;
+}
+
+#syncContainer {
+    height: calc(100% - 20px);
+    padding: 10px 0;
+}
+
+#syncWindow {
+    height: 80px;
+    position: relative;
+}
+
+#canvasLargeWaveform {
+    position: absolute;
+    left: 50%;
+    animation-duration: 60s;
+    animation-name: moveIt;
+    animation-timing-function: linear;
+    animation-fill-mode: forwards;
+    animation-delay: 2s;
+}
+
+#canvasLargeWaveformContainer {
+    height: 160px;
+    width: 100%;
+    position: relative;
+    overflow-x: hidden;
+}
+
+#playheadLargeWaveform {
+    background-color: white;
+    height: 100%;
+    width: 2px;
+    position: absolute;
+    left: 50%;
+    z-index: 1;
 }
 
 #ContentBrowse::-webkit-scrollbar {
@@ -250,19 +354,19 @@ table.browseTable tr:nth-child(even) {
 
 #waveform {
     position: relative;
-    height:50px;
- }
+    height: 50px;
+}
 
 #hotCues {
-    height:25px;
+    height: 25px;
 }
 
 #progressBar {
-    height:22px;
+    height: 22px;
     padding-top: 3px;
 }
 
-#playhead{
+#playhead {
     position: absolute;
     width: 3px;
     height: calc(100% + 25px);
@@ -271,26 +375,31 @@ table.browseTable tr:nth-child(even) {
     background-color: #ffffff;
 }
 
-#waveformImage{
-    width:100%;
+#canvasSmallWaveform {
+    width: 100%;
+    height: 100%;
 }
 
-#progressBackground{
+#progressBackground {
     height: 40%;
     border: solid 1px grey;
     border-radius: 3px;
     width: calc(100% - 2px);
     background-color: #292929;
 }
-#progress{
+
+#progress {
     height: 100%;
-    width: 0%;
+    width: 0;
     background-color: white;
     border: none;
     border-radius: 3px;
 }
 
-#selectedElement {
+.selectedElement {
     background: linear-gradient(white, #cfcfcf);
+}
+
+.loadedElement {
     color: #00a135;
 }

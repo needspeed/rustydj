@@ -3,7 +3,7 @@ window.speed=1.0;
 window.bpm=128.0;
 var waitingToPlayID=0;
 
-var exampleSocket = new WebSocket("ws://127.0.0.1:2794");
+var exampleSocket = new WebSocket("ws://10.2.0.175:2794");
 
 var playlist_tree = [];
 var track_cache = {};
@@ -27,10 +27,10 @@ function select_item(index) {
     p.i = index;
     for (var i=0; i<p.items.length; i++) {
         if (i != index) {
-            p.items[i].id = "";
+            p.items[i].classList.remove("selectedElement");
         }
     }
-    p.items[index].id = "selectedElement";
+    p.items[index].classList.add("selectedElement");
 }
 
 function send(obj) {

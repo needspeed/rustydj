@@ -6,11 +6,12 @@
 	<link rel="stylesheet" href="style.css">
 	<script type="text/javascript" src="midi.js"></script>
 	<script type="text/javascript" src="index.js"></script>
+	<script type="text/javascript" src="renderWaves.js"></script>
 </head>
 <body>
 <div id="TopBar">
 	<div id="TopText">
-		<span id="leftHeader"></span>
+		<span id="leftHeader">Not Loaded.</span>
 		<span id="rightHeader"></span>
 	</div>
 </div>
@@ -21,7 +22,39 @@
 	</div>
 </div>
 <div id="ContentInfo"></div>
-<div id="ContentWaveform"></div>
+<div id="ContentWaveform" style="display: none;">
+	<div id="syncWindow">
+		<div id="syncContainer">
+			<div class="quantizeContainer">
+				<div class="beat master" id="masterBeat1"></div>
+				<div class="beatPlaceHolder master"></div>
+				<div class="beat master" id="masterBeat2"></div>
+				<div class="beatPlaceHolder master"></div>
+				<div class="beat master" id="masterBeat3"></div>
+				<div class="beatPlaceHolder master"></div>
+				<div class="beat master" id="masterBeat4"></div>
+				<div class="beatsToCue master"><span>53.2</span></div>
+				<div class="beatsToCue text master"><span>Bars</span></div>
+			</div>
+			<div class="quantizeContainer">
+				<div class="beat this" id="thisBeat1"></div>
+				<div class="beatPlaceHolder this"></div>
+				<div class="beat this" id="thisBeat2"></div>
+				<div class="beatPlaceHolder this"></div>
+				<div class="beat this" id="thisBeat3"></div>
+				<div class="beatPlaceHolder this"></div>
+				<div class="beat this" id="thisBeat4"></div>
+				<div class="beatsToCue this"><span>53.2</span></div>
+				<div class="beatsToCue text this"><span>Bars</span></div>
+			</div>
+		</div>
+	</div>
+	<div id="canvasLargeWaveformContainer">
+		<div id="playheadLargeWaveform"></div>
+		<canvas id="canvasLargeWaveform" height="160">
+		</canvas>
+	</div>
+</div>
 <div id="FooterBar">
 	<div id="Playerstatus">
 		<table id="statusTable">
@@ -62,7 +95,9 @@
 		<div id="waveformStuff">
 			<div id="hotCues"></div>
 			<div id="waveform">
-				<img src="waveform.png" id="waveformImage">
+				<canvas id="canvasSmallWaveform" height="50">
+				</canvas>
+				<!--<img src="waveform.png" id="waveformImage">-->
 				<div id="playhead"></div>
 			</div>
 			<div id="progressBar">

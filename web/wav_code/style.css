@@ -1,0 +1,40 @@
+body {
+	margin: 0;
+	background:	black;
+}
+
+#myCanvas {
+	position: absolute;
+	left: 50%;
+	animation-duration: 60s;
+	animation-name: moveIt;
+	animation-timing-function: linear;
+	animation-fill-mode: forwards;
+	animation-delay: 2s;
+}
+
+#canvasContainer {
+	height: 280px;
+    width: 100%;
+    position: relative;
+    overflow-x: hidden;
+}
+
+#playhead {
+	background-color: red;
+	height: 100%;
+	width: 2px;
+	position: absolute;
+	left: 50%;
+	z-index: 1;
+}
+
+@keyframes moveIt {
+  from {
+    left: 50%;
+  }
+
+  to {
+    left: calc(50% - 8944px);
+  }
+}
