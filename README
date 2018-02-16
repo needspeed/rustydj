@@ -1,0 +1,80 @@
+Structs
+-----------------
+
+pub enum UICommand {
+    Enter,
+    Back,
+    Scroll(i32),
+    Quit,
+    PitchRange(f64, f64),
+    Print(String),
+    ForwardStatus(PlayerStatus),
+    ForwardLibrary(LibraryResponse)
+}
+
+pub enum UIBackCommand {
+    ForwardLibraryCommand(LibraryCommand),
+    ForwardPlayerCommand(PlayerCommand),
+    SetupMIDI(String),
+    MIDI(String, [u8;3]),
+}
+
+pub enum LibraryCommand {
+    GetPlaylist(usize),
+    GetTrack(usize),
+}
+
+pub enum LibraryResponse {
+    Track(Track),
+    Playlist(Playlist),
+}
+
+pub enum PlayerCommand {
+    GetPos,
+    Seek(f64),
+    SeekS(Duration),
+    PlayPause,
+    Cue(bool),
+    CueMove(bool),
+    HotCue(usize,bool),
+    Speed(f64),
+    SpeedDiff(f64),
+    Scratch(f64),
+    Open(Track),
+}
+
+pub enum PlayerStatus {
+    TrackInfo(Option<Track>, Duration, u32), //track, duration, sample_rate
+    Pos(Duration, f64),
+    Speed(f64),
+    Print(String),
+}
+
+pub struct Cue {
+    pub name: String,
+    pub start: usize,
+    pub type_: u8,
+}
+
+pub struct Track {
+    pub id: usize,
+    pub path : String,
+    pub info : HashMap<String, String>,
+    pub bpm : u32,
+    pub sample_rate: u32,
+    pub cues : Vec<Cue>,
+    pub first_beat : usize,
+}
+
+pub struct Playlist {
+    pub name : String,
+    pub sub_playlists : Vec<usize>,
+    pub track_keys : Vec<usize>,
+    pub parent: Option<usize>,
+}
+
+pub struct Library {
+    pub tracks : HashMap<usize, Track>,
+    pub root_playlist : Option<usize>,
+    pub playlists : Vec<Playlist>
+}

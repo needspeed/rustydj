@@ -1,0 +1,180 @@
+<html>
+    <head>
+    </head>
+    <body>
+        <p>RustyDJ Webfrontend</p>
+        <p id="curpl">Current Playlist:</p>
+        <div id="trackinfo" style="border:1px solid black;">
+            <table>
+                <tr><td>Artist:</td><td id="Artist"></td></tr>
+                <tr><td>Title:</td><td id="Title"></td></tr>
+                <tr><td>Album:</td><td id="Album"></td></tr>
+                <tr><td>BPM:</td><td id="BPM"></td></tr>
+                <tr><td>Key:</td><td id="Key"></td></tr>
+            </table>
+        </div>
+        <div id="playinfo" style="border:1px solid black;">
+            <table>
+                <tr><td>BPM:</td><td id="i_bpm"></td></tr>
+                <tr><td>Position:</td><td id="i_pos"></td></tr>
+            </table>
+            <progress id="progress" value="0" max="1"></progress>
+        </div>
+        <script>
+            var exampleSocket = new WebSocket("ws://127.0.0.1:2794", "rust-websocket");
+               
+            var playlist_tree = [];
+
+            function cur_playlist_obj() {
+                if (playlist_tree.length > 0) {
+                    return playlist_tree[playlist_tree.length - 1];
+                }
+                else return null;
+            }
+            function shift_radio(vector) {
+                var p = cur_playlist_obj();
+                p.i = Math.max(Math.min(p.i + vector, p.radios.length-1),0);
+                check_radio(p.i);
+            }
+            function check_radio(index) {
+                var p = cur_playlist_obj();
+                p.i = index;
+                for (var i=0; i<p.radios.length; i++) {
+                    if (i != index) {
+                        p.radios[i].checked = false;
+                    }
+                }
+                p.radios[index].checked = true;
+            }
+
+            function update() {
+                var p = cur_playlist_obj();
+                document.getElementById("curpl").innerHTML = "Current Playlist: " + p.playlist.name;
+            }
+
+            function send(obj) {
+                exampleSocket.send(JSON.stringify(obj));
+            }
+
+            exampleSocket.onmessage = function (event) {
+                var uicmd = JSON.parse(event.data);
+
+                var p = cur_playlist_obj();
+                if ("Enter" === uicmd) {
+                    var id = parseInt(p.radios[p.i].value);
+                    if (p.is_node) {
+                        send({
+                            ForwardLibraryCommand: {
+                                GetPlaylist: id
+                            }
+                        });
+                    }
+                    else {
+                        send({
+                            ForwardLibraryCommand: {
+                                GetTrack: id
+                            }
+                        });
+                    }
+                }
+                else if ("Back" === uicmd) {
+                    id = p.playlist.parent;
+                    if (id != null) {
+                        document.body.removeChild(p.form);
+                        playlist_tree.pop();
+                        update();
+                    }
+                }
+                else if (typeof uicmd === "object") {
+                    if ("Scroll" in uicmd) {
+                        var vector = uicmd.Scroll;
+                        shift_radio(vector); 
+                    }
+                    else if ("ForwardLibrary" in uicmd) {
+                        var libcmd = uicmd.ForwardLibrary;
+                        if ("Playlist" in libcmd) {
+                            var playlist = libcmd.Playlist;
+
+                            var playlist_radios = [];
+                            var form = document.createElement('form');
+                            var list = document.createElement("fieldset");
+                            form.appendChild(list);
+                            var iter = playlist.track_keys;
+                            var is_node = false;
+                            if (playlist.sub_playlists.length > 0) {
+                                is_node = true;
+                                iter = playlist.sub_playlists;
+                            }
+                            for (let i of iter) {
+                                var item = document.createElement('input');
+                                item.type = "radio";
+                                item.id = i;
+                                item.name = "playlist_radio";
+                                item.value = i;
+                                var label = document.createElement("label");
+                                label.for=i;
+                                label.innerHTML=i;
+                                list.appendChild(item);
+                                list.appendChild(label);
+                                playlist_radios.push(item);
+                            }
+                            playlist_tree.push({ i: 0, playlist: playlist, form: form, radios: playlist_radios, is_node:is_node });
+                            check_radio(0);
+                            document.body.appendChild(form);
+                            update();
+                        }
+                        else if ("Track" in libcmd) {
+                            var track = libcmd.Track;
+                            send({
+                                ForwardPlayerCommand: {
+                                    Open: track
+                                }
+                            });
+                        }
+                        else console.log(uicmd);
+                    }
+                    else if ("ForwardStatus" in uicmd) {
+                        var statuscmd = uicmd.ForwardStatus;
+                        if ("TrackInfo" in statuscmd) {
+                            var trackinfo = statuscmd.TrackInfo;
+                            var track = trackinfo[0];
+                            var duration = trackinfo[1];
+                            var sample_rate = trackinfo[2];
+                            document.getElementById("progress").max = duration.secs;
+                            document.getElementById("progress").value = 0;
+                            document.getElementById("Artist").innerHTML = track.info.Artist;
+                            document.getElementById("Title").innerHTML = track.info.Name;
+                            document.getElementById("Album").innerHTML = track.info.Album;
+                            document.getElementById("BPM").innerHTML = track.bpm;
+                            document.getElementById("Key").innerHTML = track.info.Tonality;
+                        }
+                        else if ("Pos" in statuscmd) {
+                            var pos = statuscmd.Pos;
+                            var time = pos[0];
+                            var s = parseInt(time.secs);
+                            var m = Math.floor(s / 60);
+                            s = Math.floor(s % 60);
+                            if (s < 10) s = "0"+s;
+                            if (m < 10) m = "0"+m;
+                            var mill = ""+Math.floor(parseInt(time.nanos)/1000000);
+                            while (mill.length < 3) mill = "0"+mill;
+                            document.getElementById("i_pos").innerHTML = m+":"+s+"."+mill+"("+Math.floor(pos[1])+")";
+                            document.getElementById("progress").value = time.secs;
+                        }
+                        else if ("Speed" in statuscmd) {
+                            document.getElementById("i_bpm").innerHTML = statuscmd.Speed;
+                        }
+                        else console.log(uicmd);
+                    }
+                }
+            }
+            exampleSocket.onopen = function (event) {
+                exampleSocket.send(JSON.stringify({
+                    ForwardLibraryCommand: {
+                        GetPlaylist: 0
+                    }
+                }));
+            };
+        </script>
+    </body>
+</html>

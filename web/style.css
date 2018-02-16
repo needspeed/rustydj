@@ -1,0 +1,296 @@
+html {
+    height: 100%;
+}
+
+body {
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    color: white;
+    background-color: black;
+    font-family: Verdana, Arial, sans-serif;
+}
+
+#ContentBrowse::-webkit-scrollbar {
+    width: 20px;
+}
+
+/* Track */
+#ContentBrowse::-webkit-scrollbar-track {
+
+    border-radius: 10px;
+    background: black;
+}
+
+/* Handle */
+#ContentBrowse::-webkit-scrollbar-thumb {
+    background: white;
+    border: 6px solid transparent;
+    border-radius: 10px;
+    width: 5px;
+    background-clip: content-box;
+}
+
+#TopBar {
+    height: 8%;
+    font-size: 24px;
+    padding: 0 5px;
+    margin: 0;
+    background: linear-gradient(to right, #008fce, black);
+    border-bottom: 1px solid transparent;
+    border-image: linear-gradient(to right, #00b8ff, black);
+    border-image-slice: 1;
+}
+
+#TopText {
+    top: 50%;
+    position: relative;
+    transform: translateY(-50%);
+(- 50 %): relative
+}
+
+#leftHeader {
+    left: 0;
+}
+
+#rightHeader {
+    right: 0;
+    position: absolute;
+}
+
+#ContentBrowse {
+    font-size: 24px;
+    line-height: 30px;
+    height: 50%;
+    overflow-y: scroll;
+    direction: rtl;
+}
+
+#scrollLeft {
+    direction: ltr;
+    margin: 0;
+    padding: 0;
+}
+
+#tableCol3 {
+    width: 35%;
+}
+
+#tableTitle {
+}
+
+#tableAlbumArt {
+    padding-left: 15px;
+    padding-right: 15px;
+    width: 90px;
+}
+
+.browseTable {
+    border-collapse: collapse;
+    table-layout: fixed;
+    width: 100%;
+}
+
+#statusTable {
+    width: 100%;
+}
+
+table.browseTable td {
+    white-space: nowrap;
+    overflow-x: hidden;
+    margin: 0;
+}
+
+#playerID {
+    margin-bottom: 2px;
+    transform: scaleY(0.9) scaleX(1.3);
+    font-weight: 900;
+}
+
+table.browseTable tr {
+    border-bottom: solid 1px black;
+    background-color: #222222;
+    line-height: 37px;
+}
+
+table.browseTable tr:first-child {
+    border-top: solid 1px black;
+}
+
+table.browseTable tr:nth-child(even) {
+    background-color: #414141;
+}
+
+#Playerstatus {
+    height: 90px;
+}
+
+#Playerstatus table {
+    height: 100%;
+}
+
+#Playerstatus tbody {
+    vertical-align: bottom;
+}
+
+#FooterBar {
+    padding-top: 10px;
+}
+
+.horizontalCenter {
+    left: 50%;
+    transform: translate(-50%, 0);
+}
+
+#Playerstatus td {
+    padding: 0 5px;
+    text-align: center;
+}
+
+#playerIdCell {
+    border: solid 2px white;
+    border-radius: 10px;
+    position: relative;
+    width: 56px;
+}
+
+.largeNum {
+    font-size: 42px;
+}
+
+.smallNum {
+    font-size: 2em;
+}
+
+#tempoNum {
+    position: relative;
+    text-align: right;
+}
+
+#trackIdCell {
+    width: 56px;
+    position: relative;
+}
+
+#trackTimingCell {
+    width: 370px;
+}
+
+#tempoPlus {
+    font-weight: bold;
+    position: absolute;
+    left: 0;
+}
+
+#tempoCell {
+    width: 145px;
+    position: relative;
+}
+
+.playerStatusElementTitle {
+    position: absolute;
+    top: 0px;
+    font-weight: bold;
+}
+
+#bpmCell {
+    width: 110px;
+    border: solid 2px white;
+    border-radius: 10px;
+    position: relative;
+}
+
+#trackID {
+    transform: scaleY(1.2) translateY(-16%);
+}
+
+#bpmNum {
+    position: absolute;
+    top: 10px;
+    font-size: 34px;
+}
+
+#playerIdTitle {
+    transform: scaleX(0.85) translateX(-13%) scaleY(1.9);
+    font-weight: bold;
+    top: 4px;
+}
+
+.number {
+    font-family: "DSEG7 Classic Light";
+}
+
+#bpmTitle {
+    position: absolute;
+    bottom: 0;
+    right: 5px;
+}
+
+#waveformPreview {
+    height: 100px;
+}
+
+#memoryIndication {
+    height: 100%;
+    float: left;
+    width: 70px;
+}
+
+#speedRange {
+    height: 100%;
+    float: left;
+    width: 70px;
+}
+
+#waveformStuff {
+    width: calc(100% - 140px);
+    float: left;
+    height: 100%;
+}
+
+#waveform {
+    position: relative;
+    height:50px;
+ }
+
+#hotCues {
+    height:25px;
+}
+
+#progressBar {
+    height:22px;
+    padding-top: 3px;
+}
+
+#playhead{
+    position: absolute;
+    width: 3px;
+    height: calc(100% + 25px);
+    top: -5px;
+    left: 0%;
+    background-color: #ffffff;
+}
+
+#waveformImage{
+    width:100%;
+}
+
+#progressBackground{
+    height: 40%;
+    border: solid 1px grey;
+    border-radius: 3px;
+    width: calc(100% - 2px);
+    background-color: #292929;
+}
+#progress{
+    height: 100%;
+    width: 0%;
+    background-color: white;
+    border: none;
+    border-radius: 3px;
+}
+
+#selectedElement {
+    background: linear-gradient(white, #cfcfcf);
+    color: #00a135;
+}

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>CDJ UI</title>
+	<link rel="stylesheet" href="style.css">
+	<script type="text/javascript" src="midi.js"></script>
+	<script type="text/javascript" src="index.js"></script>
+</head>
+<body>
+<div id="TopBar">
+	<div id="TopText">
+		<span id="leftHeader"></span>
+		<span id="rightHeader"></span>
+	</div>
+</div>
+<div id="ContentBrowse">
+	<div id="scrollLeft">
+		<table class="browseTable" id="playlistTable">
+		</table>
+	</div>
+</div>
+<div id="ContentInfo"></div>
+<div id="ContentWaveform"></div>
+<div id="FooterBar">
+	<div id="Playerstatus">
+		<table id="statusTable">
+			<tr>
+				<td id="playerIdCell">
+					<div class="playerStatusElementTitle" id="playerIdTitle">PLAYER</div>
+					<div class="largeNum number" id="playerID">4</div>
+				</td>
+				<td id="trackIdCell">
+					<div class="playerStatusElementTitle">Track</div>
+					<div class="largeNum number" id="trackID">-</div>
+				</td>
+				<td id="trackTimingCell">
+					<div class="fiftyLeftPad">
+						<span class="largeNum number" id="minutes">00</span><span class="unit">M</span>
+						<span class="largeNum number">:</span><span class="largeNum number" id="seconds">00</span><span
+							class="unit">S</span>
+						<span class="largeNum number" id="farts">00</span><span class="largeNum number">.</span><span
+							class="smallNum number" id="centiFarts">0</span><span class="unit">F</span>
+					</div>
+				</td>
+				<td id="tempoCell">
+					<div class="playerStatusElementTitle">Tempo</div>
+					<div id="tempoNum" class="smallNum">
+						<span id="tempoPlus" class="number">+</span><span class="number" id="tempo">0. 00</span><span
+							style=" font-size: 13px;">%</span>
+					</div>
+				</td>
+				<td id="bpmCell">
+					<div id="bpmNum" class="horizontalCenter number">-</div>
+					<div id="bpmTitle">BPM</div>
+				</td>
+			</tr>
+		</table>
+	</div>
+	<div id="waveformPreview">
+		<div id="memoryIndication"></div>
+		<div id="waveformStuff">
+			<div id="hotCues"></div>
+			<div id="waveform">
+				<img src="waveform.png" id="waveformImage">
+				<div id="playhead"></div>
+			</div>
+			<div id="progressBar">
+				<div id="progressBackground">
+					<div id="progress"></div>
+				</div>
+			</div>
+		</div>
+		<div id="speedRange"></div>
+	</div>
+</div>
+</body>
+</html>

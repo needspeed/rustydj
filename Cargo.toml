@@ -1,0 +1,19 @@
+[package]
+name = "rustydj"
+version = "0.1.0"
+authors = ["needspeed <needspeed101@gmail.com>"]
+
+[dependencies]
+serde = "1.0.27"
+serde_derive = "1.0.27"
+serde_json = "1.0.9"
+ws = "*"
+simplemad = "0.8.1"
+cpal = "0.6.0"
+crossbeam = "0.3.0"
+quick-xml = "0.9.4"
+minidom = "0.6.2"
+jack = "0.5.6"
+url = "1.6.0"
+tui = "0.2.0"
+termion = "1.5.1"
